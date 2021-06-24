@@ -1,0 +1,62 @@
+﻿@section head{
+    <style type="text/css">
+        body {
+            /* background-image: url('/Content/image/laundry.png');*/
+            margin: 0;
+            background-color: #ebfaff;
+            background-repeat: no-repeat;
+            background-size: cover;
+            height: 720px;
+            color: white;
+            font-family: "Lato", sans-serif;
+        }
+        
+    </style>
+}
+<body>
+    <div class="row">
+        <div class="col-lg-12">
+            <h1 style="font-family:Arial;font-weight:600; color:deepskyblue; font-size: 26px;">Dashboard</h1>
+        </div>
+    </div>
+    
+    <p style="color:deepskyblue; font-size:20px">Stats</p><hr/>
+    <div class="row">
+       
+            @using (Html.BeginForm("Index", "Customer", FormMethod.Get))
+            {
+        <button class="col-lg-3 col-sm-12" style="background-color: steelblue; border-radius:10px; height:110px">
+            <h3>Customers</h3>
+            <p>
+                @ViewBag.customercount+ Customers
+            </p>
+        </button>            
+        }
+        
+        
+            @using (Html.BeginForm("Index", "Order", FormMethod.Get))
+            {
+            <button class="col-lg-3 col-sm-12 col-lg-offset-1" style="background-color: cornflowerblue;border-radius:10px; height:110px">
+                <h3> Orders</h3>
+                <p>
+                    @Session["ordercount"]+ Orders
+                </p>
+            </button>
+            }
+        
+        
+    </div>
+
+
+    
+
+
+
+    
+
+
+
+
+
+
+</body>

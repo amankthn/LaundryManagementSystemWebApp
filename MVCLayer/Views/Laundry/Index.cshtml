@@ -1,0 +1,34 @@
+﻿@model IEnumerable<MVCLayer.Models.Laundry>
+
+@{
+    ViewBag.Title = "Laundry Rates";
+}
+
+<h2>Our Prices</h2>
+
+<br />
+<table class="table table-bordered table-striped" style="margin-block-end:390px">
+    <tr>
+        <th style="text-align:center">
+            @*@Html.DisplayNameFor(model => model.type)*@
+            Type
+        </th>
+        <th style="text-align:center">
+            @Html.DisplayNameFor(model => model.CostPerUnit)
+        </th>
+        
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td style="text-align:center">
+            @Html.DisplayFor(modelItem => item.type)
+        </td>
+        <td style="text-align:center">
+            @Html.DisplayFor(modelItem => item.CostPerUnit)
+        </td>
+       
+    </tr>
+}
+
+</table>

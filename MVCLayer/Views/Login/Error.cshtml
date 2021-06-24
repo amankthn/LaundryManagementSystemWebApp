@@ -1,0 +1,19 @@
+﻿@model MVCLayer.Models.LoginError
+@{
+    ViewBag.Title = "Error";
+}
+
+<h1 class="col-lg-12 col-lg-offset-5">Error</h1>
+<p class="text-danger col-lg-12 col-lg-offset-4">
+    @Html.DisplayFor(modelItem => modelItem.error_description)
+</p>
+<p class="col-lg-offset-5">Please Try Again!</p>
+
+<br />
+@using (Html.BeginForm("Index", "Login", FormMethod.Get))
+{
+    <button class="btn btn-default col-lg-1 col-lg-offset-5" type="submit">Try Again</button> <br /><br />
+}
+
+
+

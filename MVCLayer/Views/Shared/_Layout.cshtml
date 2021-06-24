@@ -1,0 +1,158 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - LaundryMangementSystem</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    @RenderSection("head", required: false)
+    <style>
+        .sidenav {
+            display: none;
+            height: 100%;
+            width: 250px;
+            position: fixed;
+            z-index: 1;
+            top: 0;
+            left: 0;
+            background-color: #111;
+            overflow-x: hidden;
+            padding-top: 60px;
+        }
+
+            .sidenav a {
+                padding: 8px 8px 8px 32px;
+                text-decoration: none;
+                font-size: 25px;
+                color: #818181;
+                display: block;
+                transition: 0.3s
+            }
+
+                .sidenav a:hover, .offcanvas a:focus {
+                    color: #f1f1f1;
+                }
+    </style>
+</head>
+<body>
+    <div class="navbar navbar-inverse navbar-fixed-top" id="myNav">
+        @if (Session["loggedIn"] != null)
+        {
+            <span style="font-size:29px;cursor:pointer;padding-top:5px;padding-left:12px; color:#9d9d9d" onclick="toggleNav()" class="navbar-left" id="hamburger">&#9776;</span>
+        }
+        <div class="container">
+
+            <div class="navbar-header">
+
+                @*<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>*@
+
+                @Html.ActionLink("Laundry Management System", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    @if (Session["role"] != null && (string)Session["role"] == "\"admin\"")
+                    {
+                        <li>@Html.ActionLink("Home", "Home", "Admin")</li>
+                    }
+                    @if (Session["role"] != null && (string)Session["role"] == "\"user\"")
+                    {
+                        <li>@Html.ActionLink("Home", "Index", "Home")</li>
+                    }
+                    @if (Session["role"] == null)
+                    {
+                        <li>@Html.ActionLink("Home", "Index", "Home")</li>
+                    }
+                    <li>@Html.ActionLink("About", "About", "Home")</li>
+                    <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+
+                    @if (Session["loggedIn"] != null)
+                    {
+                        <li class="navbar-right">@Html.ActionLink("Logout", "Logout", "Login")</li>
+                        if (Session["role"].ToString() == "\"admin\"")
+                        {
+                            <li class="navbar-right">@Html.ActionLink("Hello, " + Session["username"].ToString(), "Home", "Admin")</li>
+                        }
+                        else
+                        {
+                            <li class="navbar-right">@Html.ActionLink("Hello, " + Session["username"].ToString(), "Index", "Home")</li>
+                        }
+                    }
+                    else
+                    {
+                        <li class="navbar-right">@Html.ActionLink("Login", "Index", "Login")</li>
+                        <li class="navbar-right">@Html.ActionLink("Register", "Create", "Customer")</li>
+                    }
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="container body-content">
+        @RenderBody()
+        <hr />
+        <footer>
+            <p>&copy; @DateTime.Now.Year - LaundryManagementSytem - Team 8</p>
+        </footer>
+    </div>
+
+    @if (Session["role"] != null && (string)Session["role"] == "\"admin\"")
+    {
+<div id="mySidenav" class="sidenav" style="display:none">
+    <br />
+    @*<a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>*@
+
+    @Html.ActionLink("Dashboard", "Home", "Admin")
+    <hr />
+    @Html.ActionLink("Maintain Accounts", "Index", "Account")
+    @Html.ActionLink("Maintain Customers", "Index", "Customer")
+    @Html.ActionLink("Maintain Orders", "Index", "Order")
+
+
+
+</div>
+    }
+
+    @if (Session["role"] != null && (string)Session["role"] == "\"user\"")
+    {
+<div id="mySidenav" class="sidenav" style="display:none">
+    @*<a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>*@
+    <br />
+
+    <a href="#">Dashboard</a>
+    <hr />
+    @Html.ActionLink("Send Clothes", "Create", "Order")
+    @Html.ActionLink("Change Your Address", "EditAddress", "Customer")
+    @Html.ActionLink("Track Your Orders", "TrackOrder", "Order")
+
+
+</div>
+    }
+
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+    <script>
+        function openNav() {
+            document.getElementById("mySidenav").style.display = "block";
+        }
+
+        function closeNav() {
+            document.getElementById("mySidenav").style.display = "none";
+        }
+
+        function toggleNav() {
+            if (document.getElementById("mySidenav").style.display == "block")
+                document.getElementById("mySidenav").style.display = "none";
+            else
+                document.getElementById("mySidenav").style.display = "block";
+        }
+    </script>
+</body>
+</html>
